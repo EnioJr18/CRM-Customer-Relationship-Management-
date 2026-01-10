@@ -1,0 +1,65 @@
+{% extends 'leads/base.html' %}
+
+{% block title %}{{ lead.nome }} - Detalhes{% endblock %}
+
+{% block content %}
+<div class="row">
+    
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Dados do Cliente</h5>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title">{{ lead.nome }}</h3>
+                <p class="text-muted">{{ lead.get_status_display }}</p>
+                <hr>
+                <p><strong>Email:</strong><br> <a href="mailto:{{ lead.email }}">{{ lead.email }}</a></p>
+                <p><strong>Telefone:</strong><br> {{ lead.telefone|default:"Não informado" }}</p>
+                <p><strong>Prioridade:</strong><br> 
+                    <span class="badge {% if lead.prioridade == 'ALTA' %}bg-danger{% else %}bg-secondary{% endif %}">
+                        {{ lead.get_prioridade_display }}
+                    </span>
+                </p>
+                <p><strong>Responsável:</strong><br> {{ lead.agente_responsavel.username }}</p>
+                
+                <div class="d-grid mt-3">
+                    <a href="{% url 'leads:dashboard' %}" class="btn btn-outline-secondary">Voltar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        
+        <div class="card mb-4 bg-light border-0">
+            <div class="card-body">
+                <h5 class="card-title">Registrar Nova Interação</h5>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {{ form.nota }}
+                    </div>
+                    <button type="submit" class="btn btn-success">Salvar Nota</button>
+                </form>
+            </div>
+        </div>
+
+        <h4 class="mb-3">Histórico de Conversas</h4>
+        
+        {% for interacao in interacoes %}
+            <div class="card mb-2">
+                <div class="card-body py-2">
+                    <div class="d-flex justify-content-between text-muted small">
+                        <span>{{ interacao.data_interacao|date:"d/m/Y \à\s H:i" }}</span>
+                        </div>
+                    <p class="mb-1 mt-1">{{ interacao.nota|linebreaks }}</p>
+                </div>
+            </div>
+        {% empty %}
+            <div class="alert alert-info">Nenhuma interação registrada ainda.</div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}

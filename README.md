@@ -42,7 +42,7 @@ O projeto segue o padrão MVC (MVT no Django):
 
 1.  **Clone o repositório**
     ```bash
-    git clone https://github.com/EnioJr18/CRM-Customer-Relationship-Management-.git(https://github.com/EnioJr18/CRM-Customer-Relationship-Management-.git)
+    git clone https://github.com/EnioJr18/CRM-Customer-Relationship-Management-.git
     cd crm-portfolio
     ```
 
@@ -64,7 +64,7 @@ O projeto segue o padrão MVC (MVT no Django):
 4.  **Configure as Variáveis de Ambiente**
     Crie um arquivo `.env` na raiz do projeto e adicione a URL do seu banco de dados:
     ```env
-    DATABASE_URL=postgres://usuario:senha@host-neon.tech/neondb?sslmode=require (Exemplo)
+    DATABASE_URL=postgres://usuario:senha@host-neon.tech/neondb?sslmode=require #(Exemplo)
     ```
 
 5.  **Execute as Migrations**

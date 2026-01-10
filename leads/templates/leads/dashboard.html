@@ -1,0 +1,65 @@
+{% extends 'leads/base.html' %}
+
+{% block title %}Dashboard - CRM{% endblock %}
+
+{% block content %}
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h1 class="display-5">Visão Geral</h1>
+            <p class="lead">Total de Leads cadastrados: <strong>{{ total_leads }}</strong></p>
+        </div>
+    </div>
+
+    <div class="row">
+        
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-header bg-primary text-white">Por Status</div>
+                <ul class="list-group list-group-flush">
+                    {% for item in leads_por_status %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ item.status }}
+                            <span class="badge bg-primary rounded-pill">{{ item.total }}</span>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">Nenhum dado.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-header bg-warning text-dark">Por Prioridade</div>
+                <ul class="list-group list-group-flush">
+                    {% for item in leads_por_prioridade %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ item.prioridade }}
+                            <span class="badge bg-secondary rounded-pill">{{ item.total }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-header bg-success text-white">Últimas Interações</div>
+                <div class="card-body">
+                    {% for interacao in interacoes_recentes %}
+                        <div class="mb-3 border-bottom pb-2">
+                            <strong>{{ interacao.lead.nome }}</strong>
+                            <small class="text-muted d-block">{{ interacao.data_interacao|date:"d/m/Y H:i" }}</small>
+                            <p class="m-0 text-truncate">{{ interacao.nota }}</p>
+                        </div>
+                    {% empty %}
+                        <p>Nenhuma interação recente.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
