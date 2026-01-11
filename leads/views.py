@@ -4,8 +4,9 @@ from .models import Lead, Interaction
 from .forms import LeadForm, InteractionForm
 import csv
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def dashboard(request):
     total_leads = Lead.objects.count()
     leads_por_status = Lead.objects.values('status').annotate(total=Count('status'))
@@ -21,7 +22,7 @@ def dashboard(request):
 
     return render(request, 'leads/dashboard.html', contexto)
 
-
+@login_required
 def lead_create(request):
     if request.method == 'POST':
         form = LeadForm(request.POST)
@@ -35,6 +36,7 @@ def lead_create(request):
     
     return render(request, 'leads/lead_create.html', {'form': form})
 
+@login_required
 def lead_detail(request, pk):
     lead = get_object_or_404(Lead, pk=pk)
     interacoes = Interaction.objects.filter(lead=lead).order_by('-data_interacao')
@@ -55,12 +57,12 @@ def lead_detail(request, pk):
     }
     return render(request, 'leads/lead_detail.html', contexto)
 
-
+@login_required
 def lead_list(request):
     leads = Lead.objects.all().order_by('-criado_em')
     return render(request, 'leads/lead_list.html', {'leads': leads})
 
-
+@login_required
 def lead_update(request, pk):
     lead = get_object_or_404(Lead, pk=pk)
     form = LeadForm(request.POST or None, instance=lead)
@@ -70,6 +72,7 @@ def lead_update(request, pk):
     
     return render(request, 'leads/lead_create.html', {'form': form, 'lead': lead})
 
+@login_required
 def lead_delete(request, pk):
     lead = get_object_or_404(Lead, pk=pk)
     
@@ -79,6 +82,7 @@ def lead_delete(request, pk):
     
     return render(request, 'leads/lead_delete.html', {'lead': lead})
 
+@login_required
 def interaction_delete(request, pk):
     interacao = get_object_or_404(Interaction, pk=pk)
     lead_pk = interacao.lead.pk
@@ -89,6 +93,7 @@ def interaction_delete(request, pk):
     
     return render(request, 'leads/interaction_delete.html', {'interacao': interacao})
 
+@login_required
 def interaction_update(request, pk):
     interacao = get_object_or_404(Interaction, pk=pk)
     form = InteractionForm(request.POST or None, instance=interacao)
@@ -98,46 +103,55 @@ def interaction_update(request, pk):
     
     return render(request, 'leads/interaction_update.html', {'form': form, 'interacao': interacao})
 
+@login_required
 def lead_search(request):
     query = request.GET.get('q')
     leads = Lead.objects.filter(nome__icontains=query) if query else Lead.objects.none()
 
     return render(request, 'leads/lead_list.html', {'leads': leads, 'query': query})
 
+@login_required
 def leads_by_status(request, status):
     leads = Lead.objects.filter(status=status).order_by('-criado_em')
 
     return render(request, 'leads/lead_list.html', {'leads': leads, 'filtro': f'Status: {status}'})
 
+@login_required
 def leads_by_priority(request, prioridade):
     leads = Lead.objects.filter(prioridade=prioridade).order_by('-criado_em')
 
     return render(request, 'leads/lead_list.html', {'leads': leads, 'filtro': f'Prioridade: {prioridade}'})
 
+@login_required
 def recent_leads(request):
     leads = Lead.objects.all().order_by('-criado_em')[:10]
 
     return render(request, 'leads/lead_list.html', {'leads': leads, 'filtro': 'Leads Recentes'})
 
+@login_required
 def leads_without_interactions(request):
     leads = Lead.objects.annotate(num_interactions=Count('interactions')).filter(num_interactions=0)
 
     return render(request, 'leads/lead_list.html', {'leads': leads, 'filtro': 'Leads sem Interações'})
 
+@login_required
 def high_priority_leads(request):
     leads = Lead.objects.filter(prioridade='ALTA').order_by('-criado_em')
 
     return render(request, 'leads/lead_list.html', {'leads': leads, 'filtro': 'Leads de Alta Prioridade'})
 
+@login_required
 def leads_by_agent(request, agent_id):
     leads = Lead.objects.filter(agente_responsavel__id=agent_id).order_by('-criado_em')
     return render(request, 'leads/lead_list.html', {'leads': leads, 'filtro': f'Leads do Agente {agent_id}'})
 
+@login_required
 def interactions_timeline(request, lead_id):
     lead = get_object_or_404(Lead, pk=lead_id)
     interacoes = Interaction.objects.filter(lead=lead).order_by('-data_interacao')
     return render(request, 'leads/interactions_timeline.html', {'lead': lead, 'interacoes': interacoes})
 
+@login_required
 def export_leads_csv(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="leads.csv"'
@@ -151,6 +165,7 @@ def export_leads_csv(request):
 
     return response
 
+@login_required
 def export_interactions_csv(request, lead_id):
     lead = get_object_or_404(Lead, pk=lead_id)
     response = HttpResponse(content_type='text/csv')
