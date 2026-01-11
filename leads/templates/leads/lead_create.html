@@ -7,7 +7,13 @@
         <div class="col-md-6">
             <div class="card mt-4">
                 <div class="card-header bg-dark text-white">
-                    <h3 class="mb-0">Cadastrar Novo Lead</h3>
+                    <h3 class="mb-0">
+                        {% if form.instance.pk %}
+                            Editar Lead
+                        {% else %}
+                            Cadastrar Novo Lead
+                        {% endif %}
+                    </h3>
                 </div>
                 <div class="card-body">
                     <form method="post">
