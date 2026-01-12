@@ -1,43 +1,79 @@
-# 🚀 Django Sales CRM
+# 🚀 CRM Portfolio - Sistema de Gestão de Clientes
 
 Um sistema de Gestão de Relacionamento com o Cliente (CRM), o projeto simula uma aplicação real para gestão de leads, permitindo cadastro, acompanhamento de histórico e análise de métricas.
 
-![Status do Projeto](https://img.shields.io/badge/Status-Em_Desenvolvimento-yellow)
+![Status do Projeto](https://shields.io/badge/Status-Active-success?logo=checkmarx&style=for-the-badge)
 ![Python](https://img.shields.io/badge/Python-3.13%2B-blue)
 ![Django](https://img.shields.io/badge/Django-5.x-green)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Neon-336791)
 
 ## 📋 Sobre o Projeto
 
-Este projeto faz parte do meu portfólio de desenvolvimento Backend. O objetivo é criar uma solução robusta utilizando a arquitetura **MVT (Model-View-Template)** do Django, demonstrando boas práticas de engenharia de software, segurança e modelagem de dados.
+Um sistema completo de **CRM (Customer Relationship Management)** desenvolvido para gerenciar o ciclo de vida de clientes, desde a captação (Lead) até o relacionamento contínuo. O sistema permite que vendedores cadastrem potenciais clientes (Leads), registrem interações (ligações, emails) e movam o cliente através de um funil de vendas.
 
-O sistema permite que vendedores cadastrem potenciais clientes (Leads), registrem interações (ligações, emails) e movam o cliente através de um funil de vendas.
+Este projeto demonstra uma aplicação **Fullstack Python** robusta, saindo do ambiente de desenvolvimento local e indo para a produção na nuvem com banco de dados real.
 
-## 🚀 Funcionalidades
+---
 
-### Gestão de Leads (CRUD Completo)
-- [x] **Dashboard:** Visão geral com métricas (Total de leads, distribuição por status e prioridade).
-- [x] **Cadastro:** Adição de novos clientes com validação de dados.
-- [x] **Listagem:** Tabela interativa com busca e filtros rápidos.
-- [x] **Detalhamento:** Página exclusiva por cliente mostrando dados cadastrais e linha do tempo.
-- [x] **Edição e Exclusão:** Atualização de dados e remoção segura com confirmação.
+### 🌐 Demo Online
+Você pode testar o sistema funcionando em tempo real clicando no link abaixo:
 
-### Histórico e Interações
-- [x] **Timeline:** Registro de notas e conversas (interações) para cada cliente.
-- [x] **Histórico:** Visualização cronológica do relacionamento com o cliente.
+👉 **[Acessar CRM Online (Render)](https://gestor-de-relacionamento-crm.onrender.com)**
 
-### Recursos Avançados
-- [x] **Autenticação:** Sistema de Login/Logout seguro (apenas usuários autenticados acessam o sistema).
-- [x] **Busca e Filtros:** Pesquisa por nome e filtros rápidos (Alta Prioridade, Sem Interação, Recentes).
-- [x] **Exportação de Dados:** Geração de relatórios em **CSV** (Leads e Interações) para análise externa.
-- [x] **Responsividade:** Interface adaptada para Desktop e Mobile usando Bootstrap 5.
+*(Nota: Como o servidor é gratuito, pode levar alguns segundos para "acordar" no primeiro acesso).*
 
-## 🛠️ Tecnologias Utilizadas
+---
 
-- **Backend:** Python 3, Django 5
-- **Banco de Dados:** PostgreSQL (Hospedado na Neon Tech)
-- **Frontend:** HTML5, CSS3, Bootstrap 5 (CDN)
-- **Versionamento:** Git & GitHub
+## 📸 Screenshots
+
+| Dashboard | Detalhes do Lead |
+|-----------|------------------|
+| *Cole o link da sua imagem aqui* | *Cole o link da sua imagem aqui* |
+
+---
+
+## ⚡ Funcionalidades Principais
+
+### 1. Gestão de Leads (CRUD)
+- Cadastro completo de clientes com validação.
+- Listagem inteligente com **paginação** e indicadores visuais de status.
+- Edição e Exclusão segura (com confirmação).
+
+### 2. Ferramentas de Negócio
+- **Dashboard Gerencial:** Métricas em tempo real (Total de leads, distribuição por status e prioridade).
+- **Timeline de Interações:** Histórico cronológico de conversas e notas para cada cliente.
+- **Busca e Filtros:** Pesquisa por nome e filtros rápidos (Alta Prioridade, Recentes, Sem Interação).
+- **Exportação:** Geração de relatórios em **CSV** para Excel.
+
+### 3. Segurança e Infraestrutura
+- **Autenticação:** Sistema de Login/Logout (acesso restrito).
+- **Proteção:** CSRF Tokens e SQL Injection prevention (ORM Django).
+- **Deploy:** Configurado com Gunicorn e WhiteNoise para alta performance de arquivos estáticos.
+
+---
+
+## 🛠️ Tech Stack
+
+**Backend & Core**
+- Python 3.11+
+- Django 5 (MVT Architecture)
+- Gunicorn (WSGI Server)
+
+**Banco de Dados**
+- PostgreSQL (Produção - Neon Tech)
+- SQLite (Desenvolvimento Local)
+
+**Frontend**
+- HTML5 / CSS3
+- Bootstrap 5 (Responsividade)
+- Django Template Engine
+
+**DevOps & Deploy**
+- Render (Hospedagem)
+- WhiteNoise (Gestão de arquivos estáticos)
+- Git & GitHub
+
+---
 
 ## 🚀 Como rodar o projeto localmente
 
@@ -95,6 +131,13 @@ O sistema permite que vendedores cadastrem potenciais clientes (Leads), registre
 ```bash
 http://127.0.0.1:8000/
 ```
+
+🗺️ Roadmap:
+
+[ ]**Cadastro e Gestão de Usuários**
+[ ]**Melhoria na UI Design**
+[ ]**Interatividade**
+[ ]**Reestruturação do Código (Clean Code)**
 
 ## 📄 Licença
 
