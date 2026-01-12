@@ -26,8 +26,8 @@ Você pode testar o sistema funcionando em tempo real clicando no link abaixo:
 
 ## 📸 Screenshots
 
-<img width="140" height="110" alt="Image" src="https://github.com/user-attachments/assets/b3d6aac8-9bdb-4d24-a33a-8284ebed4fdf" /> 
-<img width="140" height="110" alt="Image" src="https://github.com/user-attachments/assets/8759207a-b8a4-4eba-ab84-5126790135f1" />
+<img width="640" height="610" alt="Image" src="https://github.com/user-attachments/assets/b3d6aac8-9bdb-4d24-a33a-8284ebed4fdf" /> 
+<img width="640" height="610" alt="Image" src="https://github.com/user-attachments/assets/8759207a-b8a4-4eba-ab84-5126790135f1" />
 
 ---
 
