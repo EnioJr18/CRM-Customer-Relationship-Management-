@@ -10,9 +10,9 @@ Um sistema de CRM (Customer Relationship Management) moderno e seguro, desenvolv
 ---
 
 ## 📸 Screenshots
-<img width="540" height="510" alt="Image" src="https://github.com/user-attachments/assets/b3d6aac8-9bdb-4d24-a33a-8284ebed4fdf" /> 
-<img width="540" height="510" alt="Image" src="https://github.com/user-attachments/assets/8759207a-b8a4-4eba-ab84-5126790135f1" />
-
+<img width="520" height="500" alt="Image" src="https://github.com/user-attachments/assets/a907f830-2330-45ff-a3a9-9c33509efaf3" /> 
+<img width="520" height="500" alt="Image" src="https://github.com/user-attachments/assets/65099e52-2fae-49d9-9268-e5cc5d0b9f87" />
+<img width="520" height="500" alt="Image" src="https://github.com/user-attachments/assets/c050143b-c194-4e3f-b905-1f8a4d7c6625" />
 
 ## ✨ Funcionalidades Principais
 
@@ -57,7 +57,7 @@ Você pode testar o sistema funcionando em tempo real clicando no link abaixo:
 
 1.  **Clone o repositório**
     ```bash
-    git clone https://github.com/EnioJr18/CRM-Customer-Relationship-Management-.git
+    git clone https://github.com/EnioJr18/Gestor-de-Clientes-CRM.git
     cd crm-portfolio
     ```
 
