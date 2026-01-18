@@ -1,33 +1,27 @@
 {% extends "leads/base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <div class="container-fluid">
-    <div class="row justify-content-center align-items-center" style="min-height: 80vh;">
-        <div class="col-md-6 col-lg-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
             
-            <div class="card-dashboard shadow-lg">
-                <div class="text-center mb-4">
-                    <h3 class="fw-bold text-white">Editar Anotação</h3>
-                    <p class="text-secondary small">Corrija ou atualize o histórico deste lead.</p>
-                </div>
-                
+            <h2 class="fw-bold text-white mb-4">Editar Lead</h2>
+
+            <div class="card-dashboard">
                 <form method="post">
                     {% csrf_token %}
                     
-                    <div class="mb-4">
-                        <label class="text-secondary small fw-bold mb-2 text-uppercase">O que foi conversado?</label>
-                        <div class="input-group">
-                            {{ form.nota }}
-                        </div>
-                    </div>
+                    {{ form|crispy }}
 
-                    <div class="d-flex gap-2">
-                        <a href="{% url 'leads:lead_detail' interacao.lead.pk %}" class="btn btn-outline-secondary w-50">
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn fw-bold py-2" style="background-color: var(--accent-color); color: white;">
+                            <i class="bi bi-save me-2"></i> Salvar Alterações
+                        </button>
+                        
+                        <a href="{% url 'leads:lead_detail' lead.pk %}" class="btn btn-outline-secondary">
                             Cancelar
                         </a>
-                        <button type="submit" class="btn w-50 fw-bold" style="background-color: var(--accent-color); color: white;">
-                            Salvar
-                        </button>
                     </div>
                 </form>
             </div>
@@ -37,26 +31,19 @@
 </div>
 
 <style>
-    /* Garante que o textarea fique bonito */
-    textarea.form-control {
+    .form-label {
+        color: var(--text-secondary);
+        font-weight: 600;
+        font-size: 0.85rem;
+    }
+    .form-control, .form-select {
         background-color: var(--bg-body) !important;
         border: 1px solid rgba(255,255,255,0.1) !important;
         color: white !important;
-        min-height: 150px; /* Altura fixa boa */
-        resize: none;
     }
-    textarea.form-control:focus {
+    .form-control:focus, .form-select:focus {
         border-color: var(--accent-color) !important;
         box-shadow: 0 0 0 0.25rem rgba(139, 92, 246, 0.25) !important;
-    }
-    .btn-outline-secondary {
-        border-color: rgba(255,255,255,0.2);
-        color: rgba(255,255,255,0.7);
-    }
-    .btn-outline-secondary:hover {
-        background-color: rgba(255,255,255,0.1);
-        color: white;
-        border-color: white;
     }
 </style>
 {% endblock %}

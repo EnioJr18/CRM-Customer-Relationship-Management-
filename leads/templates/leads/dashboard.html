@@ -38,30 +38,28 @@
                 <h3 class="card-value">0</h3> </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="card-dashboard">
-                <div class="d-flex justify-content-between align-items-start">
-                    <div>
-                        <span class="card-title-text">Em Negociação</span>
-                        <span class="card-subtitle">Leads com status ativo</span>
-                    </div>
-                    <i class="bi bi-graph-up-arrow card-icon"></i>
+        <div class="col-lg-4 mb-4">
+            <div class="card-dashboard p-4 mb-4 h-100">
+                <h5 class="fw-bold text-white mb-4">Leads por Status</h5>
+                <div style="height: 250px; position: relative;">
+                    <canvas id="statusChart"></canvas>
                 </div>
-                <h3 class="card-value text-success">
-                    {{ leads_por_status|length }} 
-                </h3>
+            </div>
+        </div>
+
+        <div class="col-lg-4 mb-4">
+            <div class="card-dashboard p-4 mb-4 h-100">
+                <h5 class="fw-bold text-white mb-4">Leads por Prioridade</h5>
+                <div style="height: 250px; position: relative;">
+                    <canvas id="prioridadeChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="row">
+    <div class="row g-4">
         <div class="col-12">
-            <div class="card-dashboard p-0"> <div class="p-4 pb-2">
-                    <h5 class="text-white fw-bold">Últimos Clientes</h5>
-                    <p class="text-secondary small">Leads adicionados recentemente</p>
-                </div>
-                
-                <div class="table-responsive">
+            <div class="table-responsive">
                     <table class="table table-dark-custom align-middle mb-0">
                         <thead>
                             <tr>
@@ -110,5 +108,64 @@
         </div>
     </div>
 
-</div>
+</div> <script>
+        // Configuração Comum (Cores do Tema)
+        Chart.defaults.color = '#94a3b8'; 
+        Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)'; 
+
+        // --- GRÁFICO 1: STATUS (Rosca) ---
+        const ctxStatus = document.getElementById('statusChart').getContext('2d');
+        new Chart(ctxStatus, {
+            type: 'doughnut',
+            data: {
+                labels: {{ labels_status|safe }},
+                datasets: [{
+                    data: {{ data_status|safe }},
+                    backgroundColor: [
+                        '#8b5cf6', '#3b82f6', '#10b981', '#f59e0b', '#ef4444'
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { usePointStyle: true, padding: 20 }
+                    }
+                }
+            }
+        });
+
+        // --- GRÁFICO 2: PRIORIDADE (Barras) ---
+        const ctxPrioridade = document.getElementById('prioridadeChart').getContext('2d');
+        new Chart(ctxPrioridade, {
+            type: 'bar',
+            data: {
+                labels: {{ labels_prioridade|safe }},
+                datasets: [{
+                    label: 'Quantidade',
+                    data: {{ data_prioridade|safe }},
+                    backgroundColor: '#8b5cf6',
+                    borderRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { display: true, color: 'rgba(255, 255, 255, 0.05)' }
+                    },
+                    x: { grid: { display: false } }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+    </script>
+
 {% endblock %}

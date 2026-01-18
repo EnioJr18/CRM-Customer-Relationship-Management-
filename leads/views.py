@@ -11,14 +11,30 @@ from django.contrib import messages
 @login_required
 def dashboard(request):
     total_leads = Lead.objects.filter(agente_responsavel=request.user).count()
-    leads_por_status = Lead.objects.filter(agente_responsavel=request.user).values('status').annotate(total=Count('status'))
-    leads_por_prioridade = Lead.objects.filter(agente_responsavel=request.user).values('prioridade').annotate(total=Count('prioridade'))
+    
+    # 1. Gráfico de Status
+    status_data = Lead.objects.filter(agente_responsavel=request.user).values('status').annotate(total=Count('status'))
+    
+    labels_status = [item['status'] for item in status_data]
+    data_status = [item['total'] for item in status_data]
+
+    # 2. Gráfico de Prioridade
+    prioridade_data = Lead.objects.filter(agente_responsavel=request.user).values('prioridade').annotate(total=Count('prioridade'))
+    
+    labels_prioridade = [item['prioridade'] for item in prioridade_data]
+    data_prioridade = [item['total'] for item in prioridade_data]
+    
     interacoes_recentes = Interaction.objects.filter(lead__agente_responsavel=request.user).select_related('lead').order_by('-data_interacao')[:5]
 
     contexto = {
         'total_leads': total_leads,
-        'leads_por_status': leads_por_status,
-        'leads_por_prioridade': leads_por_prioridade,
+
+        'labels_status': labels_status,
+        'data_status': data_status,
+        
+        'labels_prioridade': labels_prioridade,
+        'data_prioridade': data_prioridade,
+        
         'interacoes_recentes': interacoes_recentes,
     }
 

@@ -1,55 +1,20 @@
 {% extends "leads/base.html" %}
-
-{% block content %}
+{% load crispy_forms_tags %} {% block content %}
 <div class="container-fluid">
-
-    <a href="{% url 'leads:lead_list' %}" class="text-secondary text-decoration-none mb-4 d-inline-block">
-        <i class="bi bi-arrow-left"></i> Voltar para lista
-    </a>
-
     <div class="row justify-content-center">
-        <div class="col-lg-8 col-xl-6">
+        <div class="col-md-8 col-lg-6">
             
-            <div class="card-dashboard">
-                <h3 class="fw-bold text-white mb-4">
-                    {% if lead %}Editar Lead{% else %}Novo Lead{% endif %}
-                </h3>
+            <h2 class="fw-bold text-white mb-4">Novo Lead</h2>
 
+            <div class="card-dashboard">
                 <form method="post">
                     {% csrf_token %}
                     
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="text-secondary small fw-bold mb-1">Nome</label>
-                            {{ form.nome }}
-                        </div>
-                        <div class="col-md-6">
-                            <label class="text-secondary small fw-bold mb-1">Sobrenome</label>
-                            {{ form.sobrenome }}
-                        </div>
+                    {{ form|crispy }}
 
-                        <div class="col-12">
-                            <label class="text-secondary small fw-bold mb-1">Email</label>
-                            {{ form.email }}
-                        </div>
-                        <div class="col-12">
-                            <label class="text-secondary small fw-bold mb-1">Telefone</label>
-                            {{ form.telefone }}
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="text-secondary small fw-bold mb-1">Status</label>
-                            {{ form.status }}
-                        </div>
-                        <div class="col-md-6">
-                            <label class="text-secondary small fw-bold mb-1">Prioridade</label>
-                            {{ form.prioridade }}
-                        </div>
-                    </div>
-
-                    <div class="mt-4 d-grid gap-2">
-                        <button type="submit" class="btn btn-lg" style="background-color: var(--accent-color); color: white;">
-                            <i class="bi bi-check-lg"></i> Salvar Lead
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn fw-bold py-2" style="background-color: var(--accent-color); color: white;">
+                            <i class="bi bi-check-lg me-2"></i> Salvar Lead
                         </button>
                     </div>
                 </form>
@@ -60,7 +25,11 @@
 </div>
 
 <style>
-    /* Força os inputs a ficarem escuros */
+    .form-label {
+        color: var(--text-secondary);
+        font-weight: 600;
+        font-size: 0.85rem;
+    }
     .form-control, .form-select {
         background-color: var(--bg-body) !important;
         border: 1px solid rgba(255,255,255,0.1) !important;
@@ -70,7 +39,5 @@
         border-color: var(--accent-color) !important;
         box-shadow: 0 0 0 0.25rem rgba(139, 92, 246, 0.25) !important;
     }
-    /* Muda a cor do placeholder para não ficar invisível */
-    ::placeholder { color: rgba(255,255,255,0.3) !important; }
 </style>
 {% endblock %}

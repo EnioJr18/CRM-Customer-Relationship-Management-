@@ -58,9 +58,9 @@
                     <a href="{% url 'leads:lead_update' lead.pk %}" class="btn btn-outline-light">
                         <i class="bi bi-pencil"></i> Editar Dados
                     </a>
-                    <a href="{% url 'leads:lead_delete' lead.pk %}" class="btn btn-outline-danger">
+                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteLeadModal">
                         <i class="bi bi-trash"></i> Excluir Lead
-                    </a>
+                    </button>
                 </div>
 
             </div>
@@ -101,7 +101,11 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-dark">
                                 <li><a class="dropdown-item" href="{% url 'leads:interaction_update' interacao.pk %}">Editar</a></li>
-                                <li><a class="dropdown-item text-danger" href="{% url 'leads:interaction_delete' interacao.pk %}">Excluir</a></li>
+                                <li>
+                                    <button type="button" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#deleteInteraction-{{ interacao.pk }}">
+                                        Excluir
+                                    </button>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -130,4 +134,65 @@
     }
     ::placeholder { color: rgba(255,255,255,0.3) !important; }
 </style>
+
+<div class="modal fade" id="deleteLeadModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background-color: var(--bg-card); border: 1px solid rgba(255,255,255,0.1);">
+            
+            <div class="modal-header border-bottom border-secondary">
+                <h5 class="modal-title text-white fw-bold">Excluir Lead?</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body">
+                <p class="text-secondary mb-0">
+                    Você está prestes a excluir <strong>{{ lead.nome }} {{ lead.sobrenome|default:"" }}</strong> e todo o seu histórico. 
+                    <br><br>
+                    <span class="text-danger fw-bold"><i class="bi bi-exclamation-triangle"></i> Esta ação é irreversível.</span>
+                </p>
+            </div>
+            
+            <div class="modal-footer border-top border-secondary">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                
+                <form action="{% url 'leads:lead_delete' lead.pk %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger fw-bold">
+                        <i class="bi bi-trash-fill me-2"></i> Confirmar Exclusão
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% for interacao in interacoes %}
+    <div class="modal fade" id="deleteInteraction-{{ interacao.pk }}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background-color: var(--bg-card); border: 1px solid rgba(255,255,255,0.1);">
+                
+                <div class="modal-header border-bottom border-secondary">
+                    <h5 class="modal-title text-white">Apagar Anotação?</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                
+                <div class="modal-body text-secondary">
+                    Tem certeza que deseja remover esta anotação do dia <strong>{{ interacao.data_interacao|date:"d/m" }}</strong>?
+                </div>
+                
+                <div class="modal-footer border-top border-secondary">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    
+                    <form action="{% url 'leads:interaction_delete' interacao.pk %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Sim, apagar</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
 {% endblock %}
