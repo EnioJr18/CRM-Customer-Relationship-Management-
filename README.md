@@ -3,40 +3,33 @@
 ![Python](https://img.shields.io/badge/Python-3.13-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Django](https://img.shields.io/badge/Django-5.0-092E20?style=for-the-badge&logo=django&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
-![Status](https://img.shields.io/badge/Status-Em_Desenvolvimento-yellow?style=for-the-badge)
+![Status](https://img.shields.io/badge/Development%2520Status-Active-green)
 
-Um sistema de CRM (Customer Relationship Management) moderno e seguro, desenvolvido com **Django**. O projeto foca em oferecer uma interface elegante (Dark Mode) e isolamento de dados por usuário, funcionando como um SaaS (Software as a Service).
+Sistema de Gestão de Relacionamento com Clientes (CRM) desenvolvido com **Django**. Focado em produtividade, organização de leads e acompanhamento de métricas de vendas. O projeto oferece uma interface elegante (Dark Mode) e isolamento de dados por usuário, funcionando como um SaaS (Software as a Service).
 
 ---
 
-## 📸 Screenshots
-<img width="520" height="500" alt="Image" src="https://github.com/user-attachments/assets/a907f830-2330-45ff-a3a9-9c33509efaf3" /> 
-<img width="520" height="500" alt="Image" src="https://github.com/user-attachments/assets/65099e52-2fae-49d9-9268-e5cc5d0b9f87" />
-<img width="520" height="500" alt="Image" src="https://github.com/user-attachments/assets/c050143b-c194-4e3f-b905-1f8a4d7c6625" />
+## 📸 Vídeo Demonstração
+Em breve...
 
 ## ✨ Funcionalidades Principais
 
-- **🔐 Autenticação Segura:** Sistema completo de Login, Cadastro e Recuperação de Senha.
+- **🔐 Autenticação Segura:** Sistema completo de Login/Cadastro e Recuperação de Senha.
 - **🛡️ Multi-Tenant (Isolamento de Dados):** Cada usuário vê apenas os seus próprios leads. Acesso cruzado é bloqueado.
 - **🌑 UI/UX Moderna:** Interface responsiva com tema **Dark/Cyberpunk**, Sidebar fixa e componentes Bootstrap customizados.
-- **📊 Dashboard Interativo:** Visão geral com KPIs (Total de Vendas, Novos Clientes, Pedidos do Dia).
-- **📝 Gestão de Leads (CRUD):**
-  - Cadastro detalhado (Nome, Contato, Status, Prioridade).
-  - Histórico de interações (Timeline de anotações).
-  - Edição e Exclusão segura.
-  - Busca e Filtros: Pesquisa por nome e filtros rápidos (Alta Prioridade, Recentes, Sem Interação).
-  - Listagem inteligente com **paginação** e indicadores visuais de status.
+- **📊 Dashboard Interativo:** Gráficos em tempo real (Chart.js) para análise de Status e Prioridade.
+- **📝 Gestão de Leads (CRUD):**CRUD completo (Criar, Listar, Editar, Excluir) com segurança por usuário.
 - **⚙️ Perfil de Usuário:** Área para atualização de dados cadastrais.
-- **Exportação:** Geração de relatórios em **CSV** para Excel.
-- **Deploy:** Configurado com Gunicorn e WhiteNoise para alta performance de arquivos estáticos.
+- **🗄 Histórico de Interações:** Registro detalhado de contatos com cada cliente.
+- **📈 Exportação de Dados:** Relatórios em CSV para análise externa.
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Back-end e Core:** Python, Django Framework.
-- **Front-end:** HTML5, CSS3, Bootstrap 5 (com customização CSS via Variáveis).
+- **Back-end e Core:** Python, Django 5.
+- **Front-end:** HTML5, CSS3, Bootstrap 5 e Chart.js.
 - **Banco de Dados:** SQLite (Desenvolvimento) / PostgreSQL (Planejado para Produção).
-- **Ícones:** Bootstrap Icons.
-- **DevOps & Deploy:** Render (Hospedagem), WhiteNoise (Gestão de arquivos estáticos) e Git & GitHub.
+- **DevOps & Deploy:** Render, WhiteNoise, Gunicorne Git & GitHub.
+- **Qualidade:** Class Based Views, Crispy Forms, Testes Automatizados
 
 ### 🌐 Demo Online
 Você pode testar o sistema funcionando em tempo real clicando no link abaixo:
@@ -104,10 +97,6 @@ Você pode testar o sistema funcionando em tempo real clicando no link abaixo:
 http://127.0.0.1:8000/
 
 
-🗺️ Roadmap:
-
-* [ ] Visualização de Dados: Implementar gráficos com Chart.js.
-* [ ] Automação: Envio de e-mails automáticos para novos leads.7
 
 ## 🤝 Contribuição
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.
