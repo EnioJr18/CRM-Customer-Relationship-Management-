@@ -10,7 +10,7 @@ Sistema de Gestão de Relacionamento com Clientes (CRM) desenvolvido com **Djang
 ---
 
 ## 📸 Vídeo Demonstração
-Em breve...
+[![Assista ao Demo do CRM](https://github.com/EnioJr18/Gestor-de-Clientes-CRM/issues/3#issue-3824388682)](https://youtu.be/cnQP9G_lN4Y)
 
 ## ✨ Funcionalidades Principais
 
