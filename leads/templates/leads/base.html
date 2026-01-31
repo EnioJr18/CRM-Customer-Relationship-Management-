@@ -11,20 +11,19 @@
 
     <style>
         :root {
-            /* Paleta de Cores */
             --bg-body: #0f172a;
             --bg-sidebar: #1e293b;
             --bg-card: #1e293b;
             --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
             --accent-color: #8b5cf6;
-            --accent-hover: #7c3aed;
         }
 
         body {
             background-color: var(--bg-body);
             color: var(--text-primary);
             font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Evita rolagem lateral indesejada */
         }
 
         /* --- Sidebar --- */
@@ -38,109 +37,105 @@
             border-right: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             flex-direction: column;
-            z-index: 1000;
+            z-index: 1040; /* Acima do conteúdo */
+            transition: transform 0.3s ease-in-out;
             overflow-y: auto;
         }
-        
-        .sidebar a {
-            color: var(--text-secondary);
-            border-radius: 10px;
-            margin: 5px 15px;
-            padding: 12px 15px;
-            font-size: 0.95rem;
-            text-decoration: none;
-        }
-
-        .sidebar a:hover, .sidebar a.active {
-            background: rgba(139, 92, 246, 0.15);
-            color: var(--accent-color);
-            font-weight: 600;
-        }
-
-        .sidebar i { font-size: 1.1rem; }
-
-        /* --- Cards --- */
-        .card-dashboard {
-            background-color: var(--bg-card);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 25px;
-            height: 100%;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-dashboard:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-color);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-        }
-
-        .card-title-text { font-weight: 600; color: var(--text-primary); }
-        .card-subtitle { font-size: 0.85rem; color: var(--text-secondary); display: block; margin-top: 5px; }
-        .card-value { font-size: 2rem; font-weight: 700; color: var(--accent-color); margin-top: 15px; }
-        .card-icon { font-size: 1.5rem; color: var(--text-secondary); }
 
         /* --- Conteúdo Principal --- */
         .content {
             margin-left: 260px;
-            padding: 40px;
+            padding: 30px;
             width: calc(100% - 260px);
             min-height: 100vh;
+            transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
         }
 
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .sidebar { display: none; }
-            .content { margin-left: 0; width: 100%; }
-        }
-        
-        /* Tabelas Dark */
-        .table-dark-custom {
-            background-color: var(--bg-card);
-            border-radius: 16px;
-            overflow: hidden;
-        }
-        .table-dark-custom th, .table-dark-custom td {
-            background-color: var(--bg-card);
-            color: var(--text-secondary);
+        /* --- Navbar Mobile (Só aparece em telas pequenas) --- */
+        .mobile-nav {
+            display: none;
+            background-color: var(--bg-sidebar);
+            padding: 10px 20px;
             border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding: 15px 20px;
+            align-items: center;
+            justify-content: space-between;
         }
-        .table-dark-custom th {
-            color: var(--text-primary);
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.8rem;
+
+        /* --- Overlay (Fundo escuro quando menu abre no mobile) --- */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1030;
+            backdrop-filter: blur(2px);
         }
+
+        /* --- Responsividade --- */
+        @media (max-width: 768px) {
+            /* Mostra a navbar mobile */
+            .mobile-nav { display: flex; }
+
+            /* Esconde a sidebar jogando ela para a esquerda */
+            .sidebar { transform: translateX(-100%); }
+            
+            /* Sidebar Ativa (Classe adicionada via JS) */
+            .sidebar.active { transform: translateX(0); }
+
+            /* Overlay Ativo */
+            .sidebar-overlay.active { display: block; }
+
+            /* Conteúdo ocupa a tela toda */
+            .content {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
+        }
+
+        /* Estilos Gerais (Cards, Tabelas, etc) mantidos */
+        .sidebar a { color: var(--text-secondary); border-radius: 10px; margin: 5px 15px; padding: 12px 15px; text-decoration: none; display: block; }
+        .sidebar a:hover, .sidebar a.active { background: rgba(139, 92, 246, 0.15); color: var(--accent-color); font-weight: 600; }
+        .sidebar i { font-size: 1.1rem; }
         
-        /* Form Search */
-        .form-control-dark {
-            background-color: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: white;
-        }
-        .form-control-dark:focus {
-            background-color: rgba(255,255,255,0.1);
-            color: white;
-            border-color: var(--accent-color);
-            box-shadow: none;
-        }
+        .card-dashboard { background-color: var(--bg-card); border-radius: 16px; padding: 25px; border: 1px solid rgba(255,255,255,0.05); height: 100%; }
+        .table-dark-custom { background-color: var(--bg-card); border-radius: 16px; overflow: hidden; }
+        .table-dark-custom th, .table-dark-custom td { background-color: var(--bg-card); color: var(--text-secondary); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 15px 20px; }
+        .form-control-dark { background-color: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; }
+        .form-control-dark:focus { background-color: rgba(255,255,255,0.1); color: white; border-color: var(--accent-color); box-shadow: none; }
     </style>
 </head>
 <body>
 
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <nav class="mobile-nav d-md-none">
+        <button class="btn btn-link text-white p-0" onclick="toggleSidebar()">
+            <i class="bi bi-list fs-1"></i>
+        </button>
+        <span class="fw-bold text-white fs-5">CRM<span class="text-primary">.Pro</span></span>
+        <div style="width: 30px;"></div>
+    </nav>
+
     <div class="d-flex">
         
-        <div class="sidebar p-3">
-            <h3 class="text-white text-center mb-4">
-                <i class="bi bi-rocket-takeoff"></i> CRM<span class="text-primary">.Pro</span>
-            </h3>
+        <div class="sidebar p-3" id="sidebar">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="text-white text-center w-100 m-0">
+                    <i class="bi bi-rocket-takeoff"></i> CRM<span class="text-primary">.Pro</span>
+                </h3>
+                <button class="btn btn-link text-secondary d-md-none" onclick="toggleSidebar()">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
             
             <div class="px-3 mb-3">
                 <form action="{% url 'leads:lead_list' %}" method="get">
                     <div class="input-group">
-                        <input type="text" name="q" class="form-control form-control-sm form-control-dark" placeholder="Buscar lead...">
+                        <input type="text" name="q" class="form-control form-control-sm form-control-dark" placeholder="Buscar...">
                         <button class="btn btn-sm btn-outline-secondary" type="submit">
                             <i class="bi bi-search"></i>
                         </button>
@@ -176,7 +171,7 @@
                         <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">
                             {{ user.username|first|upper }}
                         </div>
-                        <strong>{{ user.username }}</strong>
+                        <strong class="text-truncate" style="max-width: 120px;">{{ user.username }}</strong>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
                         <li><a class="dropdown-item" href="{% url 'leads:profile' %}">Configurações</a></li>
@@ -201,10 +196,6 @@
                         <div class="toast align-items-center text-bg-{{ message.tags }} border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="d-flex">
                                 <div class="toast-body fw-bold">
-                                    {% if message.tags == 'success' %} <i class="bi bi-check-circle-fill me-2"></i>
-                                    {% elif message.tags == 'danger' %} <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                                    {% else %} <i class="bi bi-info-circle-fill me-2"></i>
-                                    {% endif %}
                                     {{ message }}
                                 </div>
                                 <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -217,20 +208,25 @@
             {% block content %}
             {% endblock %}
         </div>
-
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // Inicializa Toasts
         document.addEventListener('DOMContentLoaded', function () {
             var toastElList = [].slice.call(document.querySelectorAll('.toast'))
             var toastList = toastElList.map(function (toastEl) {
                 return new bootstrap.Toast(toastEl, { delay: 5000 });
             });
-            toastList.forEach(function (toast) {
-                toast.show();
-            });
+            toastList.forEach(function (toast) { toast.show(); });
         });
     </script>
 </body>
